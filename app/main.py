@@ -17,14 +17,11 @@ app = FastAPI(title="AURA Image Service")
 
 @app.post("/process")
 async def process(image: UploadFile = File(...)) -> Response:
-    print("REQUEST RECEIVED")
-    print(image.filename)
-
-    content = await image.read()
-
-    print(len(content))
     """Receive an image, process it, and return the result as WEBP."""
+    print("REQUEST RECEIVED", image.filename)
+
     content = await image.read()
+    print("Bytes received:", len(content))
 
     try:
         validate_image_upload(image, content)
